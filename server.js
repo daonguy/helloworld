@@ -13,17 +13,20 @@ app.use(bodyParser.json())
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
+var mysqlServiceName = "";
 if (!process.env.DATABASE_SERVICE_NAME){
   console.log("ERROR- process.env.DATABASE_SERVICE_NAME is undefined");
 }
-var mysqlServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
-      mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'],
+else {
+  mysqlServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase()
+}
+var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'] || "http://mysql-55-centos7-simple.192.168.99.100.nip.io",
       mysqlServiceNamePort = process.env[mysqlServiceName + '_SERVICE_PORT'],
-      mysqlServiceNameDatabase = process.env[mysqlServiceName + '_DATABASE'],
-      mysqlServiceNamePassword = process.env[mysqlServiceName + '_PASSWORD'],
-      mysqlServiceNameUser = process.env[mysqlServiceName + '_USER'];
+      mysqlServiceNameDatabase = process.env[mysqlServiceName + '_DATABASE'] || "userdb",
+      mysqlServiceNamePassword = process.env[mysqlServiceName + '_PASSWORD'] || "developer",
+      mysqlServiceNameUser = process.env[mysqlServiceName + '_USER'] || "developer";
 
-    console.log("mysqlServiceName=", process.env.DATABASE_SERVICE_NAME);
+    console.log("mysqlServiceName=", mysqlServiceNameHost);
     console.log("mysqlServiceNameHost=", mysqlServiceNameHost);
     console.log("mysqlServiceNameDatabase=", mysqlServiceNameDatabase);
     console.log("mysqlServiceNamePassword=", mysqlServiceNamePassword);
@@ -40,7 +43,7 @@ var mysqlServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
       if(!err) {
           console.log("Database is connected ... nn");    
       } else {
-          console.log("Error connecting database ... nn");    
+          console.log("Error connecting database ... nn", err);    
       }
   });
 /******************************
