@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
-
+/*
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
@@ -46,6 +46,7 @@ var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'] || "h
           console.log("Error connecting database ... nn", err);    
       }
   });
+  */
 /******************************
 * APIs 
 *******************************/
@@ -53,6 +54,7 @@ var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'] || "h
 app.get('/', function(req, res) {
   res.send("Hello World!!!")
 });
+/*
 app.get('/data', function(req, res) {
     connection.query('SELECT * from users', function(err, rows, fields) {
       if (!err){
@@ -72,7 +74,7 @@ app.get('/data', function(req, res) {
     });
 });
 
-
+*/
 var port = process.env.PORT || 8080;
 app.listen(port, function() {
     console.log('App started on port:' + port);
