@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
-/*
+
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
@@ -20,11 +20,11 @@ if (!process.env.DATABASE_SERVICE_NAME){
 else {
   mysqlServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase()
 }
-var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'] || "http://mysql-55-centos7-simple.192.168.99.100.nip.io",
+var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'] || "mysql-55-centos7.helloworld.svc",
       mysqlServiceNamePort = process.env[mysqlServiceName + '_SERVICE_PORT'],
-      mysqlServiceNameDatabase = process.env[mysqlServiceName + '_DATABASE'] || "userdb",
-      mysqlServiceNamePassword = process.env[mysqlServiceName + '_PASSWORD'] || "developer",
-      mysqlServiceNameUser = process.env[mysqlServiceName + '_USER'] || "developer";
+      mysqlServiceNameDatabase = process.env[mysqlServiceName + '_DATABASE'],
+      mysqlServiceNamePassword = process.env[mysqlServiceName + '_PASSWORD'],
+      mysqlServiceNameUser = process.env[mysqlServiceName + '_USER'];
 
     console.log("mysqlServiceName=", mysqlServiceNameHost);
     console.log("mysqlServiceNameHost=", mysqlServiceNameHost);
@@ -46,7 +46,6 @@ var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'] || "h
           console.log("Error connecting database ... nn", err);    
       }
   });
-  */
 /******************************
 * APIs 
 *******************************/
@@ -54,7 +53,7 @@ var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'] || "h
 app.get('/', function(req, res) {
   res.send("Hello World!!!")
 });
-/*
+
 app.get('/data', function(req, res) {
     connection.query('SELECT * from users', function(err, rows, fields) {
       if (!err){
@@ -74,8 +73,8 @@ app.get('/data', function(req, res) {
     });
 });
 
-*/
-var port = process.env.PORT || 8080;
+
+var port = process.env.PORT || 3000;
 app.listen(port, function() {
     console.log('App started on port:' + port);
 });
