@@ -31,6 +31,15 @@ var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'],
     password : mysqlServiceNamePassword,
     database : mysqlServiceNameDatabase
   });
+
+
+  connection.connect(function(err){
+      if(!err) {
+          console.log("Database is connected ... nn");    
+      } else {
+          console.log("Error connecting database ... nn", err);    
+      }
+  });
 /******************************
 * APIs 
 *******************************/
@@ -40,32 +49,22 @@ app.get('/', function(req, res) {
 });
 
 app.get('/data', function(req, res) {
-
-    connection.connect(function(err){
-        if(!err) {
-            console.log("Database is connected ...");
-
-        connection.query('SELECT * from users', function(err, rows, fields) {
-          if (!err){
-            console.log('Results: ', rows);
-              res.send(rows);
-          }
-          else{
-            console.log('Error while performing Query.');
-          }
-        });
-        connection.end(function(err){
-          if(!err) {
-              console.log("Database is disconnected ... ");    
-          } else {
-              console.log("Error disconnecting database ...");  
-          }  
-        });    
-        } else {
-            console.log("Error connecting database ...", err);    
-        }
+    connection.query('SELECT * from users', function(err, rows, fields) {
+      if (!err){
+        console.log('The solution is: ', rows);
+          res.send(rows);
+      }
+      else{
+        console.log('Error while performing Query.');
+      }
     });
-
+    connection.end(function(err){
+      if(!err) {
+          console.log("Database is disconnected ... nn");    
+      } else {
+          console.log("Error disconnecting database ... nn");  
+      }  
+    });
 });
 
 
