@@ -31,7 +31,7 @@ var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'] || "m
     console.log("mysqlServiceNameDatabase=", mysqlServiceNameDatabase);
     console.log("mysqlServiceNamePassword=", mysqlServiceNamePassword);
     
- var connection = mysql.createConnection({
+ /*var connection = mysql.createConnection({
     host     : mysqlServiceNameHost,
     user     : mysqlServiceNameUser,
     password : mysqlServiceNamePassword,
@@ -45,7 +45,7 @@ var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'] || "m
       } else {
           console.log("Error connecting database ... nn", err);    
       }
-  });
+  });*/
 /******************************
 * APIs 
 *******************************/
@@ -53,7 +53,7 @@ var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'] || "m
 app.get('/', function(req, res) {
   res.send("Hello World!!!")
 });
-
+/*
 app.get('/data', function(req, res) {
     connection.query('SELECT * from users', function(err, rows, fields) {
       if (!err){
@@ -71,7 +71,7 @@ app.get('/data', function(req, res) {
           console.log("Error disconnecting database ... nn");  
       }  
     });
-});
+});*/
 
 
 var port = process.env.PORT || 3000;
