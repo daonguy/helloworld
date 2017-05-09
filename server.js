@@ -13,20 +13,13 @@ app.use(bodyParser.json())
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
-var mysqlServiceName = "";
-if (!process.env.DATABASE_SERVICE_NAME){
-  console.log("ERROR- process.env.DATABASE_SERVICE_NAME is undefined");
-}
-else {
-  mysqlServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase()
-}
-var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'] || "mysql-55-centos7.helloworld.svc",
-      mysqlServiceNamePort = process.env[mysqlServiceName + '_SERVICE_PORT'],
-      mysqlServiceNameDatabase = process.env[mysqlServiceName + '_DATABASE'],
-      mysqlServiceNamePassword = process.env[mysqlServiceName + '_PASSWORD'],
-      mysqlServiceNameUser = process.env[mysqlServiceName + '_USER'];
+var mysqlServiceName = process.env.DATABASE_SERVICE_NAME || "MYSQL";
+var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'],
+    mysqlServiceNameDatabase = process.env[mysqlServiceName + '_DATABASE'],
+    mysqlServiceNamePassword = process.env[mysqlServiceName + '_PASSWORD'],
+    mysqlServiceNameUser = process.env[mysqlServiceName + '_USER'];
 
-    console.log("mysqlServiceName=", mysqlServiceNameHost);
+    console.log("mysqlServiceName=", mysqlServiceName);
     console.log("mysqlServiceNameHost=", mysqlServiceNameHost);
     console.log("mysqlServiceNameDatabase=", mysqlServiceNameDatabase);
     console.log("mysqlServiceNamePassword=", mysqlServiceNamePassword);
