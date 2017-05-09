@@ -23,22 +23,14 @@ var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'],
     console.log("mysqlServiceNameHost=", mysqlServiceNameHost);
     console.log("mysqlServiceNameDatabase=", mysqlServiceNameDatabase);
     console.log("mysqlServiceNamePassword=", mysqlServiceNamePassword);
+    console.log("mysqlServiceNameUser=", mysqlServiceNameUser);
     
- /*var connection = mysql.createConnection({
+ var connection = mysql.createConnection({
     host     : mysqlServiceNameHost,
     user     : mysqlServiceNameUser,
     password : mysqlServiceNamePassword,
     database : mysqlServiceNameDatabase
   });
-
-
-  connection.connect(function(err){
-      if(!err) {
-          console.log("Database is connected ... nn");    
-      } else {
-          console.log("Error connecting database ... nn", err);    
-      }
-  });*/
 /******************************
 * APIs 
 *******************************/
@@ -46,28 +38,38 @@ var mysqlServiceNameHost = process.env[mysqlServiceName + '_SERVICE_HOST'],
 app.get('/', function(req, res) {
   res.send("Hello World!!!")
 });
-/*
+
 app.get('/data', function(req, res) {
-    connection.query('SELECT * from users', function(err, rows, fields) {
-      if (!err){
-        console.log('The solution is: ', rows);
-          res.send(rows);
-      }
-      else{
-        console.log('Error while performing Query.');
-      }
+
+    connection.connect(function(err){
+        if(!err) {
+            console.log("Database is connected ...");
+
+        connection.query('SELECT * from users', function(err, rows, fields) {
+          if (!err){
+            console.log('Results: ', rows);
+              res.send(rows);
+          }
+          else{
+            console.log('Error while performing Query.');
+          }
+        });
+        connection.end(function(err){
+          if(!err) {
+              console.log("Database is disconnected ... ");    
+          } else {
+              console.log("Error disconnecting database ...");  
+          }  
+        });    
+        } else {
+            console.log("Error connecting database ...", err);    
+        }
     });
-    connection.end(function(err){
-      if(!err) {
-          console.log("Database is disconnected ... nn");    
-      } else {
-          console.log("Error disconnecting database ... nn");  
-      }  
-    });
-});*/
+
+});
 
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 app.listen(port, function() {
     console.log('App started on port:' + port);
 });
